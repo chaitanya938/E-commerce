@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { FaStar, FaUser, FaCalendar } from 'react-icons/fa';
 
 const ReviewList = ({ productId, productRating, numReviews }) => {
@@ -12,7 +12,7 @@ const ReviewList = ({ productId, productRating, numReviews }) => {
 
   const fetchReviews = async () => {
     try {
-      const { data } = await axios.get(`/api/reviews/product/${productId}`);
+      const { data } = await api.get(`/api/reviews/product/${productId}`);
       setReviews(data);
       setLoading(false);
     } catch (error) {

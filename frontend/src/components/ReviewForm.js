@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { toast } from 'react-hot-toast';
 import { FaStar, FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,7 @@ const ReviewForm = ({ productId, onReviewSubmit, onReviewUpdate }) => {
   const fetchUserReview = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get(`/api/reviews/product/${productId}/user`, {
+      const { data } = await api.get(`/api/reviews/product/${productId}/user`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (data) {
@@ -54,7 +54,7 @@ const ReviewForm = ({ productId, onReviewSubmit, onReviewUpdate }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.post('/api/reviews', {
+      const { data } = await api.post('/api/reviews', {
         productId,
         rating,
         comment: comment.trim()
@@ -90,7 +90,7 @@ const ReviewForm = ({ productId, onReviewSubmit, onReviewUpdate }) => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/reviews/${userReview._id}`, {
+      await api.delete(`/api/reviews/${userReview._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

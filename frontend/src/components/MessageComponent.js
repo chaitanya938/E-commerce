@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../contexts/AuthContext';
 import { FaPaperPlane, FaEnvelope, FaUser } from 'react-icons/fa';
 import toast from 'react-hot-toast';
@@ -16,7 +16,7 @@ const MessageComponent = ({ orderId, productOwnerId }) => {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get(`/api/messages/order/${orderId}`);
+      const response = await api.get(`/api/messages/order/${orderId}`);
       setMessages(response.data);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -31,7 +31,7 @@ const MessageComponent = ({ orderId, productOwnerId }) => {
     try {
       const messageType = user._id === productOwnerId ? 'owner_to_buyer' : 'buyer_to_owner';
       
-      await axios.post('/api/messages', {
+      await api.post('/api/messages', {
         orderId,
         message: newMessage.trim(),
         messageType

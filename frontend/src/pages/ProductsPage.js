@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { toast } from 'react-hot-toast';
 import { FaShoppingCart, FaPlus, FaStar } from 'react-icons/fa';
 
@@ -20,7 +20,7 @@ const ProductsPage = () => {
   const fetchProducts = async () => {
     try {
       // Fetch all products from the public products endpoint
-      const { data } = await axios.get('/api/products');
+      const { data } = await api.get('/api/products');
       setProducts(data);
       setLoading(false);
     } catch (error) {

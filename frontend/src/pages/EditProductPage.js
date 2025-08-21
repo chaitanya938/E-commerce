@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { toast } from 'react-hot-toast';
 import { FaArrowLeft, FaSave, FaUpload } from 'react-icons/fa';
 
@@ -39,7 +39,7 @@ const EditProductPage = () => {
   const fetchProduct = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get(`/api/admin/products/${id}`, {
+      const { data } = await api.get(`/api/admin/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -122,7 +122,7 @@ const EditProductPage = () => {
         formDataToSend.append('image', imageFile);
       }
 
-      const { data } = await axios.put(`/api/admin/products/${id}`, formDataToSend, {
+      const { data } = await api.put(`/api/admin/products/${id}`, formDataToSend, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { FaCheckCircle, FaBox, FaCreditCard, FaMapMarkerAlt, FaCalendar, FaPhone } from 'react-icons/fa';
 
 const OrderConfirmationPage = () => {
@@ -14,7 +14,7 @@ const OrderConfirmationPage = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`/api/orders/${orderId}`);
+      const response = await api.get(`/api/orders/${orderId}`);
       setOrder(response.data);
       setLoading(false);
     } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { toast } from 'react-hot-toast';
 import { 
   FaPlus, 
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('/api/admin/products', {
+      const { data } = await api.get('/api/admin/products', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProducts(data);
@@ -65,7 +65,7 @@ const AdminDashboard = () => {
   const fetchMyProducts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('/api/admin/myproducts', {
+      const { data } = await api.get('/api/admin/myproducts', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMyProducts(data);
@@ -146,7 +146,7 @@ const AdminDashboard = () => {
         formDataToSend.append('image', formData.image);
       }
 
-      const { data } = await axios.post('/api/admin/products', formDataToSend, {
+      const { data } = await api.post('/api/admin/products', formDataToSend, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -192,7 +192,7 @@ const AdminDashboard = () => {
         formDataToSend.append('image', formData.image);
       }
 
-      const { data } = await axios.put(`/api/admin/products/${editingProduct._id}`, formDataToSend, {
+      const { data } = await api.put(`/api/admin/products/${editingProduct._id}`, formDataToSend, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`/api/admin/products/${productId}`, {
+        await api.delete(`/api/admin/products/${productId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         

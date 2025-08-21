@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { toast } from 'react-hot-toast';
 import { FaPlus, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 
@@ -19,7 +19,7 @@ const MyProductsPage = () => {
   const fetchMyProducts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get('/api/admin/myproducts', {
+      const { data } = await api.get('/api/admin/myproducts', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProducts(data);
@@ -35,7 +35,7 @@ const MyProductsPage = () => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`/api/admin/products/${productId}`, {
+        await api.delete(`/api/admin/products/${productId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         toast.success('Product deleted successfully!');

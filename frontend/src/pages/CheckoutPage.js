@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { FaMapMarkerAlt, FaMoneyBillWave, FaGlobe } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
@@ -32,7 +32,7 @@ const CheckoutPage = () => {
 
   const fetchPaymentMethods = async () => {
     try {
-      const response = await axios.get('/api/payment/methods');
+      const response = await api.get('/api/payment/methods');
       setPaymentMethods(response.data.methods);
     } catch (error) {
       console.error('Error fetching payment methods:', error);
@@ -101,7 +101,7 @@ const CheckoutPage = () => {
 
   const placeOrder = async (orderData) => {
     try {
-      const response = await axios.post('/api/orders', orderData);
+      const response = await api.post('/api/orders', orderData);
       
       if (isBuyNowMode) {
         // For buy now purchases, restore the original cart
@@ -124,7 +124,7 @@ const CheckoutPage = () => {
   const handleStripePayment = async (orderData) => {
     try {
       // Create Stripe checkout session with INR currency for Indian payments
-      const { data } = await axios.post('/api/payment/create-stripe-session', {
+      const { data } = await api.post('/api/payment/create-stripe-session', {
         amount: orderData.totalPrice,
         currency: 'inr' // Use INR for Indian payments
       });

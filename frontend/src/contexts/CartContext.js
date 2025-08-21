@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 // Cart reducer
 const cartReducer = (state, action) => {
@@ -77,7 +77,7 @@ export const CartProvider = ({ children, userId }) => {
     
     try {
       setLoading(true);
-      const response = await axios.get('/api/cart');
+      const response = await api.get('/api/cart');
       console.log('📥 Cart loaded from database:', response.data);
       console.log('📥 Cart items structure:', response.data.items?.map(item => ({
         _id: item._id,
@@ -109,7 +109,7 @@ export const CartProvider = ({ children, userId }) => {
 
     try {
       setLoading(true);
-      const response = await axios.post('/api/cart/items', {
+      const response = await api.post('/api/cart/items', {
         productId: item._id,
         quantity: 1
       });
@@ -132,7 +132,7 @@ export const CartProvider = ({ children, userId }) => {
       console.log('🗑️ Current cart state before removal:', state);
       
       setLoading(true);
-      const response = await axios.delete(`/api/cart/item/${cartItemId}`);
+      const response = await api.delete(`/api/cart/item/${cartItemId}`);
       
       console.log('🗑️ Backend response:', response.data);
       
@@ -159,7 +159,7 @@ export const CartProvider = ({ children, userId }) => {
       console.log('🗑️ Current cart state before removal:', state);
       
       setLoading(true);
-      const response = await axios.delete(`/api/cart/items/${productId}`);
+      const response = await api.delete(`/api/cart/items/${productId}`);
       
       console.log('🗑️ Backend response:', response.data);
       
@@ -183,7 +183,7 @@ export const CartProvider = ({ children, userId }) => {
 
     try {
       setLoading(true);
-      const response = await axios.put(`/api/cart/items/${productId}`, {
+      const response = await api.put(`/api/cart/items/${productId}`, {
         quantity
       });
       dispatch({ type: 'UPDATE_QUANTITY', payload: response.data });
@@ -201,7 +201,7 @@ export const CartProvider = ({ children, userId }) => {
 
     try {
       setLoading(true);
-      const response = await axios.delete('/api/cart');
+      const response = await api.delete('/api/cart');
       dispatch({ type: 'CLEAR_CART', payload: response.data });
       console.log('🗑️ Cart cleared:', response.data);
     } catch (error) {
