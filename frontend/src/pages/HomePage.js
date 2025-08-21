@@ -22,11 +22,15 @@ const HomePage = () => {
 
   const fetchProducts = async () => {
     try {
+      console.log('🔍 Fetching products from:', '/api/products');
+      console.log('🔍 Full URL will be:', 'https://multivendor-ecommerce-shop-030g.onrender.com/api/products');
       const response = await api.get('/api/products');
+      console.log('✅ Products fetched successfully:', response.data);
       setProducts(response.data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('❌ Error fetching products:', error);
+      console.error('❌ Error details:', error.response?.data);
       setLoading(false);
     }
   };

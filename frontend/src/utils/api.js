@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  baseURL: 'https://multivendor-ecommerce-shop-030g.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
