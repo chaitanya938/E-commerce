@@ -238,7 +238,8 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="md:hidden p-2 text-gray-700 hover:text-primary-600"
+              className="md:hidden p-3 text-gray-700 hover:text-primary-600 active:text-primary-700 touch-manipulation"
+              aria-label="Toggle mobile menu"
             >
               {showMobileMenu ? (
                 <FaTimes className="h-6 w-6" />
@@ -298,14 +299,14 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="md:hidden bg-white border-t border-gray-200">
+        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
           <div className="px-4 py-6 space-y-4">
             {/* Mobile Navigation */}
             <nav className="space-y-2">
               <Link
                 to="/"
                 onClick={() => setShowMobileMenu(false)}
-                className="block text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-base font-medium"
+                className="block text-gray-700 hover:text-primary-600 px-3 py-3 rounded-md text-base font-medium active:bg-gray-100 touch-manipulation"
               >
                 Home
               </Link>
@@ -317,24 +318,24 @@ const Header = () => {
                 <Link
                   to="/admin"
                   onClick={() => setShowMobileMenu(false)}
-                  className="block w-full bg-purple-600 text-white px-4 py-3 rounded-md text-base font-medium hover:bg-purple-700 text-center"
+                  className="block w-full bg-purple-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-purple-700 active:bg-purple-800 text-center touch-manipulation transition-colors duration-200"
                 >
                   Add Product
                 </Link>
                 <Link
                   to="/myproducts"
                   onClick={() => setShowMobileMenu(false)}
-                  className="block w-full bg-blue-600 text-white px-4 py-3 rounded-md text-base font-medium hover:bg-blue-700 text-center"
+                  className="block w-full bg-blue-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-blue-700 active:bg-blue-800 text-center touch-manipulation transition-colors duration-200"
                 >
                   My Products
                 </Link>
-                <div className="flex items-center justify-center space-x-2 py-2">
+                <div className="flex items-center justify-center space-x-2 py-3 px-3 bg-gray-50 rounded-md">
                   <FaUser className="h-5 w-5 text-gray-700" />
-                  <span className="text-base text-gray-700">{user?.name}</span>
+                  <span className="text-base text-gray-700 font-medium">{user?.name}</span>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center justify-center space-x-2 text-gray-700 hover:text-red-600 px-4 py-3 rounded-md text-base font-medium border border-gray-300"
+                  className="w-full flex items-center justify-center space-x-2 text-gray-700 hover:text-red-600 active:text-red-700 px-4 py-4 rounded-md text-base font-medium border-2 border-gray-300 hover:border-red-300 active:border-red-400 touch-manipulation transition-all duration-200"
                 >
                   <FaSignOutAlt className="h-4 w-4" />
                   <span>Logout</span>
@@ -345,14 +346,14 @@ const Header = () => {
                 <Link
                   to="/login"
                   onClick={() => setShowMobileMenu(false)}
-                  className="block w-full text-gray-700 hover:text-primary-600 px-4 py-3 rounded-md text-base font-medium text-center border border-gray-300"
+                  className="block w-full text-gray-700 hover:text-primary-600 active:text-primary-700 px-4 py-4 rounded-md text-base font-medium text-center border-2 border-gray-300 hover:border-primary-300 active:border-primary-400 touch-manipulation transition-all duration-200"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setShowMobileMenu(false)}
-                  className="block w-full bg-primary-600 text-white px-4 py-3 rounded-md text-base font-medium hover:bg-primary-700 text-center"
+                  className="block w-full bg-primary-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-primary-700 active:bg-primary-800 text-center touch-manipulation transition-colors duration-200"
                 >
                   Sign Up
                 </Link>
@@ -365,7 +366,7 @@ const Header = () => {
       {/* Click outside to close cart dropdown and mobile menu */}
       {(showCartDropdown || showMobileMenu) && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-40 touch-none"
           onClick={() => {
             setShowCartDropdown(false);
             setShowMobileMenu(false);
