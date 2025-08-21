@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }) => {
   // Set auth token header
   useEffect(() => {
     if (state.token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
       loadUser();
     } else {
       dispatch({ type: 'SET_LOADING', payload: false });
@@ -110,7 +109,6 @@ export const AuthProvider = ({ children }) => {
   // Logout user
   const logout = () => {
     localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
     dispatch({ type: 'LOGOUT' });
   };
 
