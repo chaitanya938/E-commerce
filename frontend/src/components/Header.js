@@ -14,8 +14,14 @@ const Header = () => {
   const cartItemCount = items.reduce((total, item) => total + item.quantity, 0);
 
   const handleLogout = () => {
+    console.log('🔄 Logout clicked');
     logout();
     navigate('/');
+    setShowMobileMenu(false);
+  };
+
+  const handleMobileMenuClick = (action) => {
+    console.log('📱 Mobile menu action:', action);
     setShowMobileMenu(false);
   };
 
@@ -237,7 +243,10 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              onClick={() => {
+                console.log('📱 Mobile menu toggle clicked, current state:', showMobileMenu);
+                setShowMobileMenu(!showMobileMenu);
+              }}
               className="md:hidden p-3 text-gray-700 hover:text-primary-600 active:text-primary-700 touch-manipulation"
               aria-label="Toggle mobile menu"
             >
@@ -299,7 +308,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg z-50 relative">
           <div className="px-4 py-6 space-y-4">
             {/* Mobile Navigation */}
             <nav className="space-y-2">
@@ -317,15 +326,23 @@ const Header = () => {
               <div className="space-y-3 pt-4 border-t border-gray-200">
                 <Link
                   to="/admin"
-                  onClick={() => setShowMobileMenu(false)}
-                  className="block w-full bg-purple-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-purple-700 active:bg-purple-800 text-center touch-manipulation transition-colors duration-200"
+                  onClick={() => {
+                    console.log('📱 Add Product clicked');
+                    handleMobileMenuClick('add-product');
+                  }}
+                  className="block w-full bg-purple-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-purple-700 active:bg-purple-800 text-center touch-manipulation transition-colors duration-200 cursor-pointer select-none"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   Add Product
                 </Link>
                 <Link
                   to="/myproducts"
-                  onClick={() => setShowMobileMenu(false)}
-                  className="block w-full bg-blue-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-blue-700 active:bg-blue-800 text-center touch-manipulation transition-colors duration-200"
+                  onClick={() => {
+                    console.log('📱 My Products clicked');
+                    handleMobileMenuClick('my-products');
+                  }}
+                  className="block w-full bg-blue-600 text-white px-4 py-4 rounded-md text-base font-medium hover:bg-blue-700 active:bg-blue-800 text-center touch-manipulation transition-colors duration-200 cursor-pointer select-none"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   My Products
                 </Link>
